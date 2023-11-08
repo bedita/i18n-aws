@@ -14,11 +14,11 @@ declare(strict_types=1);
  */
 namespace BEdita\I18n\Aws\Core;
 
-use Aws\Exception\AwsException;
 use Aws\Translate\TranslateClient;
 use BEdita\I18n\Core\TranslatorInterface;
 use Cake\Log\LogTrait;
 use Cake\Utility\Hash;
+use Exception;
 use Psr\Log\LogLevel;
 
 class Translator implements TranslatorInterface
@@ -79,14 +79,13 @@ class Translator implements TranslatorInterface
         try {
             $translation = [];
             foreach ($texts as $key => $text) {
-                $translated = $this->awsClient->translateText([
+                $translation[$key] = $this->awsClient->translateText([
                     'SourceLanguageCode' => $from,
                     'TargetLanguageCode' => $to,
                     'Text' => $text,
-                ]);
-                $translation[$key] = (string)Hash::get($translated, 'TranslatedText');
+                ])['TranslatedText'];
             }
-        } catch (AwsException $e) {
+        } catch (Exception $e) {
             $this->log($e->getMessage(), LogLevel::ERROR);
         }
 
