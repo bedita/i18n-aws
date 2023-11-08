@@ -16,6 +16,7 @@ namespace BEdita\I18n\Aws\Core;
 
 use Aws\Exception\AwsException;
 use Aws\Translate\TranslateClient;
+use BEdita\I18n\Core\TranslatorInterface;
 use Cake\Log\LogTrait;
 use Cake\Utility\Hash;
 use Psr\Log\LogLevel;
@@ -36,7 +37,7 @@ class Translator implements TranslatorInterface
      *
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Setup translator engine.
