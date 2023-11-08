@@ -14,6 +14,8 @@ declare(strict_types=1);
  */
 namespace BEdita\I18n\Aws\Test\Core;
 
+use Aws\Translate\TranslateClient;
+use BEdita\I18n\Aws\Core\Translator;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -31,17 +33,33 @@ class TranslatorTest extends TestCase
      */
     public function testSetup(): void
     {
-        static::markTestIncomplete('Not implemented yet.');
+        $translator = new class extends Translator {
+            public function getAwsClient(): TranslateClient
+            {
+                return $this->awsClient;
+            }
+        };
+        $translator->setup(['auth_key' => 'test-auth-key', 'profile' => 'test-profile', 'region' => 'test-region']);
+        static::assertNotEmpty($translator->getAwsClient());
     }
 
     /**
      * Test translate.
+     * It throws an error during translation, so this will return an empty translation `{"translation":[]}`.
      *
      * @return void
      * @covers ::translate()
      */
     public function testTranslate(): void
     {
-        static::markTestIncomplete('Not implemented yet.');
+        $translator = new class extends Translator {
+            public function getAwsClient(): TranslateClient
+            {
+                return $this->awsClient;
+            }
+        };
+        $translator->setup(['auth_key' => 'test-auth-key', 'profile' => 'test-profile', 'region' => 'test-region']);
+        $result = $translator->translate(['test'], 'en', 'it');
+        static::assertEquals('{"translation":[]}', $result);
     }
 }
