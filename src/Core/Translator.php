@@ -17,7 +17,6 @@ namespace BEdita\I18n\Aws\Core;
 use Aws\Translate\TranslateClient;
 use BEdita\I18n\Core\TranslatorInterface;
 use Cake\Log\LogTrait;
-use Cake\Utility\Hash;
 use Exception;
 use Psr\Log\LogLevel;
 
@@ -48,7 +47,6 @@ class Translator implements TranslatorInterface
     public function setup(array $options = []): void
     {
         $this->options = $options;
-        $this->options['key'] = (string)Hash::get($options, 'auth_key');
         $this->awsClient = new TranslateClient([
             'profile' => $this->options['profile'],
             'region' => $this->options['region'],
