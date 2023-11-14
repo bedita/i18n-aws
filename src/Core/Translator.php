@@ -37,7 +37,7 @@ class Translator implements TranslatorInterface
      *
      * @var array
      */
-    protected array $options = [];
+    protected array $options = ['version' => 'latest'];
 
     /**
      * Setup translator engine.
@@ -47,13 +47,8 @@ class Translator implements TranslatorInterface
      */
     public function setup(array $options = []): void
     {
-        $this->options = $options;
-        $this->options['key'] = (string)Hash::get($options, 'auth_key');
-        $this->awsClient = new TranslateClient([
-            'profile' => $this->options['profile'],
-            'region' => $this->options['region'],
-            'version' => 'latest',
-        ]);
+        $this->options = array_merge($options, $this->options);
+        $this->awsClient = new TranslateClient($this->options);
     }
 
     /**
