@@ -41,7 +41,6 @@ class TranslatorTest extends TestCase
             }
         };
         $translator->setup(['profile' => 'test-profile', 'region' => 'test-region']);
-        static::assertNotEmpty($translator->getAwsClient());
         $expected = [
             'profile' => 'test-profile',
             'region' => 'test-region',
@@ -52,6 +51,7 @@ class TranslatorTest extends TestCase
         $property->setAccessible(true);
         $actual = $property->getValue($translator);
         static::assertSame($expected, $actual);
+        static::assertNotEmpty($translator->getAwsClient());
     }
 
     /**
@@ -69,7 +69,10 @@ class TranslatorTest extends TestCase
                 return $this->awsClient;
             }
         };
-        $translator->setup(['profile' => 'test-profile', 'region' => 'test-region']);
+        $translator->setup([
+            'profile' => 'test-profile',
+            'region' => 'test-region',
+        ]);
         $result = $translator->translate(['test'], 'en', 'it');
         static::assertEquals('{"translation":[]}', $result);
     }
