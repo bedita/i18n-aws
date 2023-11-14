@@ -32,5 +32,6 @@ $translator->setup([
     'profile' => 'your-profile', // the AWS profile
     'region' => 'your-region', // the AWS region
 ]);
-$translation = $translator->translate(['Hello world!'], 'en', 'it');
+$result = $translator->translate(['Hello world!'], 'en', 'it');
+// $result is an array, i.e ['translation' => ['Ciao mondo!']]
 ```
