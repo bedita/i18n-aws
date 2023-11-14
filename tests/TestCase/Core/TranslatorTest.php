@@ -17,6 +17,7 @@ namespace BEdita\I18n\Aws\Test\Core;
 use Aws\Translate\TranslateClient;
 use BEdita\I18n\Aws\Core\Translator;
 use Cake\TestSuite\TestCase;
+use ReflectionClass;
 
 /**
  * {@see \BEdita\I18n\AWS\Core\Translator} Test Case
@@ -39,7 +40,17 @@ class TranslatorTest extends TestCase
                 return $this->awsClient;
             }
         };
-        $translator->setup(['auth_key' => 'test-auth-key', 'profile' => 'test-profile', 'region' => 'test-region']);
+        $translator->setup(['profile' => 'test-profile', 'region' => 'test-region']);
+        $expected = [
+            'profile' => 'test-profile',
+            'region' => 'test-region',
+            'version' => 'latest',
+        ];
+        $reflection = new ReflectionClass($translator);
+        $property = $reflection->getProperty('options');
+        $property->setAccessible(true);
+        $actual = $property->getValue($translator);
+        static::assertSame($expected, $actual);
         static::assertNotEmpty($translator->getAwsClient());
     }
 
@@ -58,7 +69,10 @@ class TranslatorTest extends TestCase
                 return $this->awsClient;
             }
         };
-        $translator->setup(['auth_key' => 'test-auth-key', 'profile' => 'test-profile', 'region' => 'test-region']);
+        $translator->setup([
+            'profile' => 'test-profile',
+            'region' => 'test-region',
+        ]);
         $result = $translator->translate(['test'], 'en', 'it');
         static::assertEquals('{"translation":[]}', $result);
     }

@@ -28,6 +28,9 @@ Usage example:
 use BEdita\I18n\Aws\Core\Translator;
 
 $translator = new Translator();
-$translator->setup(['auth_key' => 'your-auth-key', 'profile' => 'your-profile', 'region' => 'your-region']);
+$translator->setup([
+    'profile' => 'your-profile', // the AWS profile
+    'region' => 'your-region', // the AWS region
+]);
 $translation = $translator->translate(['Hello world!'], 'en', 'it');
 ```
