@@ -1,9 +1,9 @@
 {
     "name": "bedita/i18n-aws",
-    "description": "BEdita I18n Aws plugin supporting PHP >= 7.3 && PHP < 8.3",
+    "description": "BEdita I18n Aws plugin supporting PHP >= 7.4",
     "license": "MIT",
     "require": {
-        "php": ">=7.4 <8.3",
+        "php": ">=7.4",
         "bedita/i18n": "^4.4.3",
         "cakephp/utility": "^4.4",
         "aws/aws-sdk-php": "^3.285"
