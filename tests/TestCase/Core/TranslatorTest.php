@@ -33,7 +33,6 @@ class TranslatorTest extends TestCase
      * Test setup.
      *
      * @return void
-     * @covers ::setup()
      */
     public function testSetup(): void
     {
@@ -62,7 +61,6 @@ class TranslatorTest extends TestCase
      * It throws an error during translation, so this will return an empty translation `{"translation":[]}`.
      *
      * @return void
-     * @covers ::translate()
      */
     public function testTranslate(): void
     {
